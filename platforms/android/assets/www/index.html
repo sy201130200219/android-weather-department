@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;script-src * 'unsafe-inline'">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" href="css/swiper.css"/>
+        <title>来安气象</title>
+        <style>
+            body {
+                background: lightgoldenrodyellow;
+            }
+            .swiper-pagination span {
+                float: left;
+                display: block;
+                width: 23%;
+            }
+
+            .swiper-slide {
+                margin-top: 20px;
+            }
+
+            .active {
+                background: #9885cf;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="swiper-container">
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div>
+                        <div>
+                            <span>滚球半径：</span>
+                            <select id="gqbj">
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                                <option value="60">60</option>
+                            </select>
+                        </div>
+                        <div>
+                            <span>避雷针高度:</span>
+                            <input type="number" id="blqgd"/>
+                            <span>单位：米</span>
+                        </div>
+                        <div>
+                            <span>被保护面高度：</span>
+                            <input type="number" id="bbhm"/>
+                        </div>
+                    </div>
+                    <footer>
+                        <button id="btn">计算</button>
+                        <span>计算结果：</span>
+                        <input type="text" id="jg"/>
+                    </footer>
+                </div>
+                <div class="swiper-slide">
+                    <p>
+                        <span>请根据建筑物所处的环境，选择校正系数K值：</span>
+                        <select id="k">
+                            <option value="1.0">1.0</option>
+                            <option value="1.5">1.5</option>
+                            <option value="1.7">1.7</option>
+                            <option value="2.0">2.0</option>
+                        </select>
+                    </p>
+                    <p>
+                        <span>年平均雷暴日(Td)：</span>
+                        <input type="number" id="td"/>
+                        <span>天/年</span>
+                    </p>
+                    <p>
+                        <span>建筑物长度(L)：</span>
+                        <input type="number" id="l"/>
+                        <span>米</span>
+                    </p>
+                    <p>
+                        <span>建筑物宽度(W)：</span>
+                        <input type="number" id="w"/>
+                        <span>米</span>
+                    </p>
+                    <p>
+                        <span>建筑物高度(H)：</span>
+                        <input type="number" id="h"/>
+                        <span>米</span>
+                    </p>
+                    <p>
+                        <button id="btn2">计算</button>
+                    </p>
+                    <p>
+                        <span>建筑物年预计雷击次数：</span>
+                        N=<input type="number" id="n"/>
+                        <span>次</span>
+                    </p>
+                </div>
+                <div class="swiper-slide">
+                    <p>
+                        <span>接地系统工频接地电阻值(R)：</span>
+                        <input type="number"/>
+                        <span>Ω</span>
+                    </p>
+                    <p>
+                        <span>接地系统处土壤电阻率(ρ)：</span>
+                        <input type="number"/>
+                        <span>Ω·m</span>
+                    </p>
+                    <p>
+                        <span>接地体最长支线实际长度(L)：</span>
+                        <input type="number"/>
+                        <span>m</span>
+                    </p>
+                    <div>
+                        <p>换算系数A视图：</p>
+                        <img src="img/1.png"/>
+                    </div>
+                    <p>
+                        <span>接地系统冲击接地电阻值(Ri)为：</span>
+                        <input type="number"/>
+                        <span>Ω</span>
+                    </p>
+                    <p>
+                        <span>接地体有效长度(Le)为：</span>
+                        <input type="number"/>
+                        <span>m</span>
+                    </p>
+                    <p>
+                        <button>计算</button>
+                    </p>
+                </div>
+                <div class="swiper-slide">
+                    。。。。
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery-2.2.1.js"></script>
+        <script src="js/swiper.js"></script>
+
+        <script type="text/javascript">
+
+            $('#btn').click(function() {
+               var  hr = parseFloat($('#gqbj').val());
+                var h = parseFloat($('#blqgd').val());
+                var hx = parseFloat($('#bbhm').val());
+                var rx = Math.round(Math.sqrt((2*hr-h)*h)+Math.sqrt(hx*(2*hr-hx)));
+                $('#jg').val(rx);
+            });
+
+            $('#btn2').click(function() {
+               var k = parseFloat($('#k').val());
+                var td = parseFloat($('#td').val());
+                var l = parseFloat($('#l').val());
+                var w = parseFloat($('#w').val());
+                var h = parseFloat($('#h').val());
+
+            });
+
+
+            var titleList = new Array();
+            titleList = ["单支避雷针保护范围","建筑物年预计雷击次数","冲击接地电阻值计算","接闪杆高度计算"];
+
+            var swiper = new Swiper('.swiper-container', {
+                direction: 'horizontal',
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                paginationBulletRender: function(swiper,index,className) {
+                    return '<span class="'+className+'">'+titleList[index]+'</span>';
+                },
+                effect : 'coverflow',
+                slidesPerView: 1,
+                centeredSlides: true,
+                coverflow: {
+                    rotate: 30,
+                    stretch: 10,
+                    depth: 60,
+                    modifier: 2,
+                    slideShadows : true
+                }
+            });
+
+            /*计算swiper的高度*/
+            var spanDom = document.querySelector('.swiper-pagination>span');
+            var h = window.innerHeight - parseFloat(window.getComputedStyle(spanDom).height);
+            console.log(h);
+            $('.swiper-slide').css('min-height', h);
+        </script>
+    </body>
+</html>
